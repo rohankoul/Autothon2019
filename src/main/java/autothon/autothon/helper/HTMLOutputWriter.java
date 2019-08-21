@@ -3,17 +3,15 @@ package autothon.autothon.helper;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import java.time.LocalDateTime; 
-import java.time.format.DateTimeFormatter;
 
 public class HTMLOutputWriter {
 
 		FileWriter fw;
 
 		public HTMLOutputWriter(String location, String title) {
-			LocalDateTime now = LocalDateTime.now();
-			DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss"); 
-			String formattedDate = now.format(format);			
+		//	LocalDateTime now = LocalDateTime.now();
+		//	DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss"); 
+		//	String formattedDate = now.format(format);			
 			try {
 				fw = new FileWriter(location);
 				fw.write("<!DOCTYPE html>");
@@ -91,7 +89,7 @@ public class HTMLOutputWriter {
 						+ "<div align=\"\">");
 				fw.write("<div align=\"center\">"
 						+ "		<h2>"+title+"</h2>"
-						+ "		<h4>Test run :  "+formattedDate+"</h4>"
+						+ "		<h4>Test run :  </h4>"
 						+ "</div>"
 						+ "<table width=\"1200\">"
 						+ "		<tr><th>Step Action</th><th>Input data</th><th>Exported Data</th><th><div align='center'>Status</div></th></tr>"

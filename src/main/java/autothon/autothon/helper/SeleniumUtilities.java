@@ -8,6 +8,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SeleniumUtilities {
 	
+	
+	public Boolean isEnabled(WebElement element,String xpath) {
+		return element.isEnabled();
+	}
+	
+	public Boolean isVisible(WebElement element,String xpath) {
+		return element.isDisplayed();
+	}
+	
+	
 	static int TIMEOUT_WAIT_UNTIL = 20;
 	public void enterInput(WebDriver driver,String xpath, String value,String screenshot_name, HTMLOutputWriter html) throws SeleniumScriptFailedException
 	{
