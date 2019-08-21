@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Surefire suite" duration-ms="61" started-at="2019-08-21T03:50:16Z" finished-at="2019-08-21T03:50:16Z">
+  <suite name="Surefire suite" duration-ms="155" started-at="2019-08-21T06:29:13Z" finished-at="2019-08-21T06:29:14Z">
     <groups>
     </groups>
-    <test name="Surefire test" duration-ms="61" started-at="2019-08-21T03:50:16Z" finished-at="2019-08-21T03:50:16Z">
+    <test name="Surefire test" duration-ms="155" started-at="2019-08-21T06:29:13Z" finished-at="2019-08-21T06:29:14Z">
       <class name="Autothon.Autothon.AppTest">
-        <test-method status="PASS" signature="testApp()" name="testApp" duration-ms="20" started-at="2019-08-21T03:50:16Z" finished-at="2019-08-21T03:50:16Z">
+        <test-method status="PASS" signature="testApp()" name="testApp" duration-ms="32" started-at="2019-08-21T06:29:14Z" finished-at="2019-08-21T06:29:14Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testApp -->
