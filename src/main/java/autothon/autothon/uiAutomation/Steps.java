@@ -2,7 +2,9 @@ package autothon.autothon.uiAutomation;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -101,6 +103,8 @@ public class Steps extends Thread{
 		//
 		try{
 			
+			
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 			html.createTable("Main");
 			utl.goToPage(driver, "https://youtube.com", this.device+"_1.png", html); // go to you tube 1
 			
@@ -115,7 +119,9 @@ public class Steps extends Thread{
 			
 			utl.clickElement(driver, e, this.device+"_3.png");  // click on the channel name 3 
 			
-			e = utl.findElement(driver, "//paper-tab/div[contains(text(),'Videos')]");
+			Thread.sleep(3000);
+			
+			e = utl.findElement(driver, "//paper-tab[contains(*,'Videos')]");
 			if(!e.isDisplayed()) {
 				Thread.sleep(4000);
 			}
@@ -126,16 +132,49 @@ public class Steps extends Thread{
 			
 			// API call   String  5
 			
-//			WebElement element = utl.findElement(driver, "");  // find the video link from the entire list
-//			utl.scrollDown(driver, element );  // scroll up tp the element 5
-//			 
-//			Screenshot.takeScreenshot(driver, device+"_6.png");
-//			
-//			utl.clickElement(driver, element, device+"_8.png");
 			
+			//((JavascriptExecutor) driver).executeScript("window.scrollTo.(0,document.getElementsByTagName('ytd-browse')[1])");
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(0,5000)");
+			Thread.sleep(3000);
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(5000,7000)");
+			Thread.sleep(3000);
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(7000,10000)");
+			Thread.sleep(3000);
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(10000,15000)");
+			Thread.sleep(3000);
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(15000,17000)");
+			Thread.sleep(3000);
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(17000,25000)");
+			Thread.sleep(3000);
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(17000,30000)");
+			Thread.sleep(3000);
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(30000,35000)");
+			Thread.sleep(3000);
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(35000,40000)");
+			Thread.sleep(3000);
+			WebElement element = utl.findElement(driver, "//a[contains(@aria-label,'Testimonial 4')]"); 
 			
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView()",element);
+			((JavascriptExecutor) driver).executeScript("arguments[0].focus()",element);
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(0,-200)");
 			
-					
+			System.out.println(" scrolled successfully");
+			
+			 // find the video link from the entire list
+			//utl.scrollDown(driver, element );  // scroll up tp the element 5
+			
+			Screenshot.takeScreenshot(driver, device+"_6.png");
+			
+			utl.clickElement(driver, element, device+"_8.png");
+			Thread.sleep(3000);
+			utl.findAndClickElement(driver, "//*[@id=\"movie_player\"]/div[21]/div[2]/div[2]/button[3]", device+"_9.png", html);
+			Thread.sleep(3000);
+			utl.findAndClickElement(driver, "//*[@id=\"ytp-id-18\"]/div/div/div[3]/div[1]", device+"_10.png", html);
+			Thread.sleep(3000);
+			utl.findAndClickElement(driver, "//*[@id=\"movie_player\"]/div[21]/div[2]/div[2]/button[3]", device+"_11.png", html);
+			Thread.sleep(3000);
+			utl.findAndClickElement(driver, "//*[@id=\"ytp-id-18\"]/div/div/div[4]/div", device+"_11.png", html);
+			Thread.sleep(3000);
 		}
 		catch (Exception e) {
 			System.out.println("Exception E " + e.getMessage());
@@ -145,7 +184,7 @@ public class Steps extends Thread{
 			// html.closeHTML();
 			html.closeHTML();
 			html.cleanup();
-			driver.quit();
+			
 		}
 	
 		

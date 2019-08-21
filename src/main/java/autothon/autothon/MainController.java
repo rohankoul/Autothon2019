@@ -24,10 +24,10 @@ public class MainController {
 		ExecutorService pool = Executors.newFixedThreadPool(MAX_T);
 		
 		Runnable s1 = new Steps("chrome","windows");
-		Runnable s2 = new Steps("chrome","android");
+		//Runnable s2 = new Steps("chrome","android");
 		
 		pool.execute(s1);	
-		pool.execute(s2);	
+		//pool.execute(s2);	
 		return "200";
 		
     }
