@@ -8,6 +8,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import autothon.autothon.MainController;
+
 public class SeleniumUtilities {
 	
 	static String loc = "C:\\Users\\i340909\\git\\Autothon2019\\src\\main\\resources\\screenshot\\";
@@ -31,14 +33,14 @@ public class SeleniumUtilities {
 			e.clear();
 			e.sendKeys(value);
 			Screenshot.takeScreenshot(driver, loc+screenshot_name);
-			html.insertRow("Input", value, "", 1);
+			html.insertRow("Input", value, "",loc+screenshot_name, 1);
 			System.out.println("Entered"+value);
 		}catch(Exception e) {
 			
 			//String loc = "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name;
 			Screenshot.takeScreenshot(driver, loc+screenshot_name);
 			System.out.println("Exception in enter input method -> xpath = "+xpath);
-			html.insertRow("Input",e.getMessage(),loc, 0);
+			html.insertRow("Input",e.getMessage(),"",loc+screenshot_name, 0);
 			throw new SeleniumScriptFailedException (e);
 		}finally {
 			
@@ -77,14 +79,14 @@ public class SeleniumUtilities {
 			e.clear();
 			e.sendKeys(value);
 			e.submit();
-			html.insertRow("Input & Submit",value, "", 1);
+			html.insertRow("Input & Submit",value, "",loc+screenshot_name, 1);
 			Screenshot.takeScreenshot(driver, loc+screenshot_name);
 			System.out.println("Entered & submitted"+value);
 		}
 		catch(Exception e) {
 		//	String loc = "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name;
 			Screenshot.takeScreenshot(driver, loc+screenshot_name);
-			html.insertRow("Input & Submit",e.getMessage(), loc, 0);
+			html.insertRow("Input & Submit",e.getMessage(),"", loc+screenshot_name, 0);
 			System.out.println("Exception in enter input and submit method -> xpath = "+xpath);
 			throw new SeleniumScriptFailedException (e);
 		}finally {
@@ -105,7 +107,7 @@ public class SeleniumUtilities {
 
 	}
 	
-	public WebElement findElement(WebDriver driver,String xpath) throws SeleniumScriptFailedException {
+	public WebElement findElement(WebDriver driver,String xpath,HTMLOutputWriter html) throws SeleniumScriptFailedException {
 		try {
 			//WebDriverWait wait = new WebDriverWait(driver, TIMEOUT_WAIT_UNTIL);
 			//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
@@ -113,6 +115,7 @@ public class SeleniumUtilities {
 			//e.click();
 			//html.insertRow("Click", xpath, "", 1);
 			System.out.println("Found "+xpath+" Sucessfully");
+			
 			//Screenshot.takeScreenshot(driver, loc+screenshot_name);
 			return e;
 			
@@ -134,12 +137,12 @@ public class SeleniumUtilities {
 		
 	}
 	
-	public WebElement clickElement(WebDriver driver, WebElement e,String screenshot_name) throws SeleniumScriptFailedException {
+	public WebElement clickElement(WebDriver driver, String label, WebElement e,String screenshot_name,HTMLOutputWriter html) throws SeleniumScriptFailedException {
 		try {
 			//WebDriverWait wait = new WebDriverWait(driver, TIMEOUT_WAIT_UNTIL);
 			//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 			e.click();
-			//html.insertRow("Click", xpath, "", 1);
+			html.insertRow("Click",label, "",loc+screenshot_name, 1);
 			System.out.println("Click on Sucessfully");
 			Screenshot.takeScreenshot(driver, loc+screenshot_name);
 			
@@ -152,7 +155,7 @@ public class SeleniumUtilities {
 			//String loc = "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name;
 			//System.out.println("Exception in enter find and click element method -> xpath = "+xpath);
 			//Screenshot.takeScreenshot(driver, "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name);
-			//html.insertRow("Click", ex.getMessage(),loc, 0);
+			html.insertRow("Click", ex.getMessage(),"",loc+screenshot_name, 0);
 			Screenshot.takeScreenshot(driver, loc+screenshot_name);
 			
 			
@@ -172,10 +175,10 @@ public class SeleniumUtilities {
 			//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 			WebElement e = driver.findElement(By.xpath(xpath));
 			e.click();
-			html.insertRow("Click", xpath, "", 1);
+			html.insertRow("Click", xpath, "",loc+screenshot_name, 1);
 			System.out.println("Clicked "+xpath+" Sucessfully");
 			Screenshot.takeScreenshot(driver, loc+screenshot_name);
-			
+			MainController.generateResultsWindow(1,"Click", "", "", "success", "","ui");
 			
 			
 		}
@@ -184,9 +187,9 @@ public class SeleniumUtilities {
 			//String loc = "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name;
 			System.out.println("Exception in enter find and click element method -> xpath = "+xpath);
 			//Screenshot.takeScreenshot(driver, "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name);
-			html.insertRow("Click", ex.getMessage(),loc, 0);
+			html.insertRow("Click", ex.getMessage(),"",loc+screenshot_name, 0);
 			Screenshot.takeScreenshot(driver, loc+screenshot_name);
-			
+			MainController.generateResultsWindow(1,"Click", "", "", "Failed", "","ui");
 			
 			throw new SeleniumScriptFailedException (ex);
 		}finally {
@@ -199,15 +202,17 @@ public class SeleniumUtilities {
 		try{
 			
 			driver.get(url);
-			html.insertRow("Navigate to", url , "", 1);
+			html.insertRow("Navigate to", url , "",loc+screenshot_name, 1);
+			MainController.generateResultsWindow(1,"Open YouTube", "", "", "success", "","ui");
 			
 		}
 		catch(Exception e) {
 			//String loc = "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name;
 			//Screenshot.takeScreenshot(driver, "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name);
-			html.insertRow("Navigate to", e.getMessage(), loc , 0);
+			html.insertRow("Navigate to", e.getMessage(), "", loc+screenshot_name , 0);
 			System.out.println("Exception in Go to Page method");
 			Screenshot.takeScreenshot(driver, loc+screenshot_name);
+			MainController.generateResultsWindow(1,"Open YouTube", "", "", "Failed", "","ui");
 			throw new SeleniumScriptFailedException (e);
 		}finally {
 			
@@ -221,7 +226,7 @@ public class SeleniumUtilities {
 			//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 			WebElement e = driver.findElement(By.xpath(xpath));
 			String text = e.getText();
-			html.insertRow("Read", "" , text, 1);
+			html.insertRow("Read", "" , text, loc+screenshot_name, 1);
 			Screenshot.takeScreenshot(driver, loc+screenshot_name);
 			return text;
 		}
@@ -229,7 +234,7 @@ public class SeleniumUtilities {
 			//String loc = "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name;
 		//	Screenshot.takeScreenshot(driver, loc);
 			Screenshot.takeScreenshot(driver, loc+screenshot_name);
-			html.insertRow("Read", ex.getMessage() , loc, 0);
+			html.insertRow("Read", ex.getMessage() , "",loc+screenshot_name, 0);
 			System.out.println("Exception in get data from element method xpath ->"+xpath);
 			return "";
 			
@@ -239,76 +244,7 @@ public class SeleniumUtilities {
 		
 	}
 	
-	public void enterInputWithCssSelector(WebDriver driver,String cssSelector, String value,String screenshot_name, HTMLOutputWriter html) throws SeleniumScriptFailedException {
-	try {
-		WebElement e = driver.findElement(By.cssSelector(cssSelector));
-		e.sendKeys(value);
-		e.clear();
-		e.sendKeys(value);
-		html.insertRow("Input", value, "", 1);
-		System.out.println("Entered"+value);
-	}catch(Exception e) {
-		
-		String loc = "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name;
-		Screenshot.takeScreenshot(driver, "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name);
-		
-		html.insertRow("Input",e.getMessage(),loc, 0);
-		throw new SeleniumScriptFailedException (e);
-	}finally {
-		
-	}
 	
-}
-
-public void findAndClickElementWithCssSelector(WebDriver driver,String cssSelector,String screenshot_name, HTMLOutputWriter html) throws SeleniumScriptFailedException {
-		
-		
-		try {
-			//WebDriverWait wait = new WebDriverWait(driver, TIMEOUT_WAIT_UNTIL);
-			//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-			WebElement e = driver.findElement(By.cssSelector(cssSelector));
-			e.click();
-			html.insertRow("Click", "", "", 1);
-			System.out.println("Clicked");
-			
-			
-			driver.findElement(By.cssSelector(""));
-			
-		}
-		catch(Exception ex)
-		{
-			String loc = "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name;
-			Screenshot.takeScreenshot(driver, "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name);
-			html.insertRow("Click", ex.getMessage(),loc, 0);
-			System.out.println("Clicked");
-			throw new SeleniumScriptFailedException (ex);
-		}finally {
-			
-		}
-		
-	}	
-	
-public String getDataFromElementUsingCssSelector(WebDriver driver,String cssSelector, String screenshot_name, HTMLOutputWriter html)
-{
-	try {
-		//WebDriverWait wait = new WebDriverWait(driver, TIMEOUT_WAIT_UNTIL);
-		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-		WebElement e = driver.findElement(By.xpath(cssSelector));
-		String text = e.getText();
-		html.insertRow("Read", "" , text, 1);
-		return text;
-	}
-	catch(Exception ex) {
-		String loc = "C:\\\\Users\\\\i340909\\\\OneDrive - SAP SE\\\\Autothon\\\\screenshots\\\\error_"+screenshot_name;
-		Screenshot.takeScreenshot(driver, loc);
-		html.insertRow("Read", ex.getMessage() , loc, 0);
-		return "";
-		
-	}finally {
-		
-	}
-	
-}
 }
 		
 	

@@ -92,7 +92,7 @@ public class HTMLOutputWriter {
 						+ "		<h4>Test run :  </h4>"
 						+ "</div>"
 						+ "<table width=\"1200\">"
-						+ "		<tr><th>Step Action</th><th>Input data</th><th>Exported Data</th><th><div align='center'>Status</div></th></tr>"
+						+ "		<tr><th>Step Action</th><th>Input data</th><th>Exported Data</th><th><div align='center'>Status</div></th><th>Screenshot</th></tr>"
 						+ ""
 						+ "</table><br>");
 				
@@ -132,14 +132,14 @@ public class HTMLOutputWriter {
 		/**
 		 * Takes input Action, input data, transaction data, status
 		 */
-		public void insertRow(String action, String test, String generated, int status)
+		public void insertRow(String action, String test, String generated,String screenshot, int status)
 		{
 			try {
 				this.fw.write("<tr><td>"+action+"</td><td>"+test+"</td>");
 				if(status==1)
-					this.fw.write("<td>"+generated+"</td><td><div align=\"center\"><div class=\"success\"></div></div></td></tr>");
+					this.fw.write("<td>"+generated+"</td><td><div align=\"center\"><div class=\"success\"></div></div></td><td><a target='blank' href='"+screenshot+"'>screenshot</a></td></tr>");
 				else
-					this.fw.write("<td><a target='blank' href='"+generated+"'>screenshot</a></td><td><div align=\"center\"><div align=\"center\" class=\"fail\">x</div></td></div></tr>");
+					this.fw.write("<td>"+generated+"</td><td><div align=\"center\"><div align=\"center\" class=\"fail\">x</div></div></td><td><a target='blank' href='"+screenshot+"'>screenshot</a></td></tr>");
 
 				
 			} catch (IOException e) {
